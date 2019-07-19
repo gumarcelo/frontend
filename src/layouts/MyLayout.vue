@@ -65,7 +65,6 @@
 
 <script>
 import { openURL } from 'quasar'
-import { mapActions } from 'vuex'
 
 export default {
   name: 'MyLayout',
@@ -76,23 +75,7 @@ export default {
     }
   },
   methods: {
-    openURL,
-    ...mapActions(['taskStore/sisyncApi']),
-    getTasks () {
-      const DATA = ''
-      const URL = '/task'
-      const ID = ''
-      const ACTION = 'get'
-      this['taskStore/sisyncApi']({ DATA, URL, ID, ACTION })
-        .then((data) => {
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-  },
-  mounted () {
-    this.getTasks()
+    openURL
   }
 }
 </script>

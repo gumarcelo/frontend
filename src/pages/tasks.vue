@@ -1,66 +1,56 @@
 <script>
-import _ from 'lodash' // biblioteca para trabalhar com arrays
+import { mapActions } from 'vuex'
 export default {
   name: 'Tasks',
   data () {
     return {
       tarefa: {
-        titulo: '',
-        descricao: '',
-        data: '',
-        done: false
+        title: '',
+        description: '',
+        dateLimit: '',
+        status: 'open'
       },
       tarefaId: null,
       tarefas: [],
       confirm: false
     }
   },
-  computed: {
-    minhaLista () {
-      const listatrue = _.filter(this.tarefas, (o) => {
-        return o.done === false
-      })
-      return listatrue
-    },
-    getTask () {
-      return this.$store.getters['taskStore/getTask']
-    }
-  },
   methods: {
+    ...mapActions(['taskStore/sisyncApi']),
+    getTasks () {
+      const DATA = ''
+      const URL = '/task'
+      const ID = ''
+      const ACTION = 'get'
+      this['taskStore/sisyncApi']({ DATA, URL, ID, ACTION })
+        .then((data) => {
+          this.tarefas = data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     saveTask () {
-      this.$store.commit('taskStore/saveTask', this.tarefa)
-    },
-    adicionarTarefa () {
-      if (this.tarefaId === null) {
-        this.tarefas.push({ titulo: this.tarefa.titulo, descricao: this.tarefa.descricao, data: this.tarefa.data, done: this.tarefa.done })
-        this.$q.localStorage.set('Task', this.tarefas)
-        this.tarefa = {}
-        this.$store.commit('taskStore/saveTask', this.tarefa)
-        this.confirm = false
-      } else {
-        const listUpdated = {
-          titulo: this.tarefa.titulo,
-          descricao: this.tarefa.descricao,
-          data: this.tarefa.data,
-          done: this.tarefa.done
-        }
-        this.tarefas[this.tarefaId] = listUpdated
-        this.tarefa = {
-          titulo: '',
-          descricao: '',
-          data: '',
-          done: false
-        }
-        this.tarefaId = null
-        this.confirm = false
+      const DATA = this.tarefa
+      const URL = '/task'
+      const ID = 'tarefaId'
+      const ACTION = 'save'
+      this['taskStore/sisyncApi']({ DATA, URL, ID, ACTION })
+        .then((data) => {
+          console.log('tarefa salva no BD')
+          console.log(data)
+        }).catch((e) => {
+          console.log('erro ao salvar a tarefa no BD')
+          console.log(e)
+        })
+      this.tarefa = {
+        title: '',
+        description: '',
+        dateLimit: '',
+        status: 'open'
       }
-    },
-    getList () {
-      if (!this.$q.localStorage.getItem('Task')) {
-        return
-      }
-      // this.$q.localStorage.set('Task', this.$store.getters['taskStore/getTask'])
-      this.tarefas = this.$q.localStorage.getItem('Task')
+      this.tarefaId = null
+      this.confirm = false
     },
     updateList (i) {
       this.confirm = true
@@ -71,15 +61,15 @@ export default {
       this.confirm = true
       this.tarefaId = null
       this.tarefa = {
-        titulo: '',
-        descricao: '',
-        data: '',
-        done: false
+        title: '',
+        description: '',
+        dateLimit: '',
+        status: 'open'
       }
     }
   },
-  created () {
-    this.getList()
+  mounted () {
+    this.getTasks()
   }
 }
 </script>
@@ -88,9 +78,9 @@ export default {
   <div class="corpo">
     <div class="list">
       <ul>
-        <li v-for="(i, index) in minhaLista" :key="index">
-          <q-checkbox v-model="i.done" />
-          <span @click="updateList(index)">{{i.titulo}}</span>
+        <li v-for="(i, index) in this.tarefas" :key="index">
+          <q-checkbox v-model="i.status" />
+          <span @click="updateList(index)">{{i.title}}</span>
         </li>
       </ul>
     </div>
@@ -104,13 +94,13 @@ export default {
             <div class="text-h6">Adicionar tarefa</div>
           </q-card-section>
           <q-card-section>
-            <q-input v-model="tarefa.titulo" autofocus @keyup.enter="prompt = false" label="Título" />
-            <q-input v-model="tarefa.descricao" @keyup.enter="prompt = false" label="Descrição" />
-            <q-input filled v-model="tarefa.data" mask="date" :rules="['date']">
+            <q-input v-model="tarefa.title" autofocus @keyup.enter="prompt = false" label="Título" />
+            <q-input v-model="tarefa.description" @keyup.enter="prompt = false" label="Descrição" />
+            <q-input filled v-model="tarefa.dateLimit" mask="date" :rules="['date']">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                    <q-date v-model="tarefa.data" @input="() => $refs.qDateProxy.hide()" />
+                    <q-date v-model="tarefa.dateLimit" @input="() => $refs.qDateProxy.hide()" />
                   </q-popup-proxy>
                 </q-icon>
               </template>
@@ -118,7 +108,7 @@ export default {
           </q-card-section>
           <q-card-actions align="right" class="text-primary">
             <q-btn flat label="Cancel" v-close-popup />
-            <q-btn flat label="Add Tarefa" @click="adicionarTarefa"/>
+            <q-btn flat label="Add Tarefa" @click="saveTask"/>
           </q-card-actions>
         </q-card>
       </q-dialog>
