@@ -14,6 +14,7 @@ const doRequest = (payload) => {
         urlRequest.data = payload.DATA
         urlRequest.url = payload.URL + '/' + payload.ID
       } else {
+        console.log('entrei no services post')
         urlRequest.method = 'post'
         urlRequest.data = payload.DATA
         console.log(urlRequest)
