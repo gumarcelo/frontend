@@ -5,12 +5,14 @@ export default {
   data () {
     return {
       tarefa: {
+        id: '',
         title: '',
         description: '',
         dateLimit: '',
         status: 'open'
       },
-      confirm: false
+      janela: false,
+      tarefaID: null
     }
   },
   computed: {
@@ -37,34 +39,36 @@ export default {
     saveTask () {
       const DATA = this.tarefa
       const URL = '/task'
-      const ID = ''
+      const ID = this.tarefaID
       const ACTION = 'save'
       this['taskStore/requestTask']({ DATA, URL, ID, ACTION })
         .then((data) => {
+          console.log('tarefa criada')
           this.$store.commit('taskStore/saveTask2', data.tasks)
         }).catch((e) => {
           console.log('erro ao salvar a tarefa no BD')
           console.log(e)
         })
+      // this.reset()
+      this.janela = false
+    },
+    botaoAdd (i) {
+      this.janela = true
+      this.tarefaID = i._id
+      this.tarefa.title = i.title
+      this.tarefa.description = i.description
+      this.tarefa.dateLimit = i.dateLimit
+      this.tarefa.status = i.status
+      console.log(this.tarefaID)
+    },
+    reset () {
       this.tarefa = {
         title: '',
         description: '',
         dateLimit: '',
         status: 'open'
       }
-      this.confirm = false
-    },
-    updateTask (i) {
-      this.confirm = true
-    },
-    botaoAdd () {
-      this.confirm = true
-      this.tarefa = {
-        title: '',
-        description: '',
-        dateLimit: '',
-        status: 'open'
-      }
+      this.tarefaID = null
     }
   },
   mounted () {
@@ -77,17 +81,17 @@ export default {
   <div class="corpo">
     <div class="list">
       <ul>
-        <li v-for="(i, index) in getList" :key="index">
+        <li v-for="(i) in getList" :key="i._id">
           <q-checkbox v-model="i.status" />
-          <span @click="updateTask(index)">{{i.title}}</span>
+          <span @click="botaoAdd(i)">{{i.title}}</span>
         </li>
       </ul>
     </div>
     <div class="botaoAdd">
       <q-page-sticky position="bottom-right" :offset="[18,18]">
-        <q-btn fab icon="add" color="primary" @click="botaoAdd" />
+        <q-btn fab icon="add" color="primary" @click="janela = !janela" />
       </q-page-sticky>
-      <q-dialog v-model="confirm">
+      <q-dialog v-model="janela">
         <q-card style="min-width: 400px">
           <q-card-section>
             <div class="text-h6">Adicionar tarefa</div>

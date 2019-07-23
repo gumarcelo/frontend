@@ -9,12 +9,10 @@ const doRequest = (payload) => {
   switch (payload.ACTION) {
     case 'save' :
       if (payload.ID) {
-        console.log('put')
         urlRequest.method = 'put'
         urlRequest.data = payload.DATA
         urlRequest.url = payload.URL + '/' + payload.ID
       } else {
-        console.log('entrei no services post')
         urlRequest.method = 'post'
         urlRequest.data = payload.DATA
         console.log(urlRequest)

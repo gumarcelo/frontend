@@ -11,8 +11,8 @@ export const sisyncApi = (context, payload) => {
 //   const apiReturn = apiRequest(payload)
 //   return apiReturn
 // }
-export const requestTask = (context, payload) => {
-  console.log('entrei no action request')
+export const requestTask = ({ context }, payload) => {
+  console.log(payload)
   const apiReturn = apiRequest(payload)
   apiReturn.then((data) => {
     context.commit('saveTask2', data)
