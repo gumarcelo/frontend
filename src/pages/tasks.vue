@@ -10,8 +10,6 @@ export default {
         dateLimit: '',
         status: 'open'
       },
-      tarefaId: null,
-      tarefas: [],
       confirm: false
     }
   },
@@ -29,7 +27,6 @@ export default {
       const ACTION = 'get'
       this['taskStore/sisyncApi']({ DATA, URL, ID, ACTION })
         .then((data) => {
-          console.log(data)
           this.$store.commit('taskStore/saveTask2', data)
         })
         .catch((err) => {
@@ -55,17 +52,13 @@ export default {
         dateLimit: '',
         status: 'open'
       }
-      this.tarefaId = null
       this.confirm = false
     },
-    updateList (i) {
+    updateTask (i) {
       this.confirm = true
-      this.tarefa = JSON.parse(JSON.stringify(this.tarefas[i]))
-      this.tarefaId = i
     },
     botaoAdd () {
       this.confirm = true
-      this.tarefaId = null
       this.tarefa = {
         title: '',
         description: '',
@@ -86,7 +79,7 @@ export default {
       <ul>
         <li v-for="(i, index) in getList" :key="index">
           <q-checkbox v-model="i.status" />
-          <span @click="updateList(index)">{{i.title}}</span>
+          <span @click="updateTask(index)">{{i.title}}</span>
         </li>
       </ul>
     </div>
@@ -113,7 +106,7 @@ export default {
             </q-input>
           </q-card-section>
           <q-card-actions align="right" class="text-primary">
-            <q-btn flat label="Cancel" v-close-popup />
+            <q-btn flat label="Cancelar" v-close-popup />
             <q-btn flat label="Add Tarefa" @click="saveTask"/>
           </q-card-actions>
         </q-card>
