@@ -15,7 +15,7 @@ export const requestTask = ({ context }, payload) => {
   console.log(payload)
   const apiReturn = apiRequest(payload)
   apiReturn.then((data) => {
-    context.commit('saveTask2', data)
+    context.commit('saveTask', data)
   })
   return apiReturn
 }

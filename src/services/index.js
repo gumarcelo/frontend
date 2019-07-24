@@ -15,7 +15,6 @@ const doRequest = (payload) => {
       } else {
         urlRequest.method = 'post'
         urlRequest.data = payload.DATA
-        console.log(urlRequest)
       }
       break
     case 'paginate' :

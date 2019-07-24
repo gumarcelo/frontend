@@ -5,11 +5,10 @@ export default {
   data () {
     return {
       tarefa: {
-        id: '',
         title: '',
         description: '',
         dateLimit: '',
-        status: 'open'
+        status: ''
       },
       janela: false,
       tarefaID: null
@@ -45,12 +44,21 @@ export default {
         .then((data) => {
           console.log('tarefa criada')
           this.$store.commit('taskStore/saveTask2', data.tasks)
+          this.getTasks()
         }).catch((e) => {
           console.log('erro ao salvar a tarefa no BD')
           console.log(e)
         })
-      // this.reset()
+      this.reset()
       this.janela = false
+    },
+    deleteTask (i) {
+      this.tarefa.title = i.title
+      this.tarefa.description = i.description
+      this.tarefa.dateLimit = i.dateLimit
+      this.tarefa.status = 'trash'
+      this.tarefaID = i._id
+      this.saveTask()
     },
     botaoAdd (i) {
       this.janela = true
@@ -59,14 +67,13 @@ export default {
       this.tarefa.description = i.description
       this.tarefa.dateLimit = i.dateLimit
       this.tarefa.status = i.status
-      console.log(this.tarefaID)
     },
     reset () {
       this.tarefa = {
         title: '',
         description: '',
         dateLimit: '',
-        status: 'open'
+        status: ''
       }
       this.tarefaID = null
     }
@@ -84,6 +91,7 @@ export default {
         <li v-for="(i) in getList" :key="i._id">
           <q-checkbox v-model="i.status" />
           <span @click="botaoAdd(i)">{{i.title}}</span>
+          <q-btn icon="delete" @click="deleteTask(i)" />
         </li>
       </ul>
     </div>
