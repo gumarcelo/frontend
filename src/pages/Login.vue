@@ -28,7 +28,7 @@ export default {
       const ACTION = 'save'
       this['taskStore/sisyncApi']({ DATA, URL, ID, ACTION })
         .then((data) => {
-          console.log(data)
+          this.$store.commit('taskStore/doLogin', data)
           SessionStorage.set('token', data.token)
           this.$router.push('/tasks')
         }).catch((e) => {

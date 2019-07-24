@@ -1,3 +1,8 @@
 export default {
-  task: []
+  task: [],
+  user: {
+    name: '',
+    email: ''
+  },
+  token: ''
 }

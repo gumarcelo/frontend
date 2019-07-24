@@ -26,8 +26,8 @@
         <q-avatar size="80px">
           <img src="https://instagram.fvcp1-1.fna.fbcdn.net/vp/609e648a0189a7c45ed87118e7fb7b77/5D860211/t51.2885-19/s150x150/59373896_299262674289355_525223617823244288_n.jpg?_nc_ht=instagram.fvcp1-1.fna.fbcdn.net">
         </q-avatar>
-        <h2>Gustavo</h2>
-        <p>gustavo@gmail.com</p>
+        <h2>{{recoveryUser.name}}</h2>
+        <p>{{recoveryUser.email}}</p>
       </div>
       <q-list>
         <q-item clickable to="/tasks">
@@ -72,6 +72,11 @@ export default {
     return {
       leftDrawerOpen: false
       // this.$q.platform.is.desktop
+    }
+  },
+  computed: {
+    recoveryUser () {
+      return this.$store.getters['taskStore/getUser']
     }
   },
   methods: {

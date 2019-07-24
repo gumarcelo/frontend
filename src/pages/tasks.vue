@@ -28,27 +28,28 @@ export default {
       const ACTION = 'get'
       this['taskStore/sisyncApi']({ DATA, URL, ID, ACTION })
         .then((data) => {
-          this.$store.commit('taskStore/saveTask2', data)
+          this.$store.commit('taskStore/fillState', data)
         })
         .catch((err) => {
           console.log(err)
         })
     },
-    ...mapActions(['taskStore/requestTask']),
     saveTask () {
       const DATA = this.tarefa
       const URL = '/task'
       const ID = this.tarefaID
       const ACTION = 'save'
-      this['taskStore/requestTask']({ DATA, URL, ID, ACTION })
-        .then((data) => {
-          console.log('tarefa criada')
-          this.$store.commit('taskStore/saveTask2', data.tasks)
-          this.getTasks()
-        }).catch((e) => {
-          console.log('erro ao salvar a tarefa no BD')
-          console.log(e)
-        })
+      if (ID) {
+        this['taskStore/sisyncApi']({ DATA, URL, ID, ACTION })
+          .then((data) => {
+            this.$store.commit('taskStore/fillState', data)
+          })
+          .catch((e) => {
+            console.log('erro ao atualizar a tarefa no BD')
+            console.log(e)
+          })
+      }
+      this.getTasks()
       this.reset()
       this.janela = false
     },
