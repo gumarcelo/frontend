@@ -13,7 +13,7 @@
 
 import Vue from 'vue'
 
-import {Quasar,QLayout,QHeader,QDrawer,QPageContainer,QPage,QToolbar,QToolbarTitle,QBtn,QIcon,QList,QItem,QItemSection,QItemLabel,QInput,QOptionGroup,QCheckbox,QDialog,QPageSticky,QCard,QCardSection,QCardActions,QDate,QAvatar,QPopupProxy,QImg,Ripple,ClosePopup,Notify,LocalStorage,SessionStorage} from 'quasar'
+import {Quasar,QLayout,QHeader,QDrawer,QPageContainer,QPage,QToolbar,QToolbarTitle,QBtn,QIcon,QList,QItem,QItemSection,QItemLabel,QInput,QOptionGroup,QCheckbox,QDialog,QPageSticky,QCard,QCardSection,QCardActions,QDate,QAvatar,QPopupProxy,QImg,QTabs,QTab,QRouteTab,QSplitter,QTabPanels,QTabPanel,Ripple,ClosePopup,Notify,LocalStorage,SessionStorage} from 'quasar'
 
 
-Vue.use(Quasar, { config: {},components: {QLayout,QHeader,QDrawer,QPageContainer,QPage,QToolbar,QToolbarTitle,QBtn,QIcon,QList,QItem,QItemSection,QItemLabel,QInput,QOptionGroup,QCheckbox,QDialog,QPageSticky,QCard,QCardSection,QCardActions,QDate,QAvatar,QPopupProxy,QImg},directives: {Ripple,ClosePopup},plugins: {Notify,LocalStorage,SessionStorage} })
+Vue.use(Quasar, { config: {},components: {QLayout,QHeader,QDrawer,QPageContainer,QPage,QToolbar,QToolbarTitle,QBtn,QIcon,QList,QItem,QItemSection,QItemLabel,QInput,QOptionGroup,QCheckbox,QDialog,QPageSticky,QCard,QCardSection,QCardActions,QDate,QAvatar,QPopupProxy,QImg,QTabs,QTab,QRouteTab,QSplitter,QTabPanels,QTabPanel},directives: {Ripple,ClosePopup},plugins: {Notify,LocalStorage,SessionStorage} })

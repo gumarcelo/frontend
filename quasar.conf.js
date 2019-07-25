@@ -50,7 +50,13 @@ module.exports = function (ctx) {
         'QDate',
         'QAvatar',
         'QPopupProxy',
-        'QImg'
+        'QImg',
+        'QTabs',
+        'QTab',
+        'QRouteTab',
+        'QSplitter',
+        'QTabPanels',
+        'QTabPanel'
       ],
 
       directives: [
