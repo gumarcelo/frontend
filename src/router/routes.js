@@ -9,6 +9,7 @@ const routes = [
   },
   {
     path: '/tasks',
+    meta: { requireAuth: true },
     component: () => import('layouts/MyLayout.vue'),
     children: [
       { path: '', component: () => import('pages/tasks.vue') }

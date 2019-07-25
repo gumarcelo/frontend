@@ -4,3 +4,6 @@ export function getTask (state) {
 export function getUser (state) {
   return state.user
 }
+export function getToken (state) {
+  return state
+}

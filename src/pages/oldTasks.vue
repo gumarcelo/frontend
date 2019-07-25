@@ -143,4 +143,54 @@ export default {
           padding 0
           list-style none
           color $primary
+
+
+
+
+
+          .corpo
+    height max-height
+    width max-width
+    padding 20px
+    display flex
+    flex-direction column
+    align-content center
+    align-items center
+    justify-content center
+    margin-bottom  15px
+    .header
+      background-color $primary
+      height 160px
+      display flex
+      flex-direction column
+      align-items center
+      justify-content center
+      img
+        border solid 3px #fff
+      h5, p
+      margin 0
+      padding 0
+      color #fff
+      h5
+        margin-top 10px
+        font-size 22px
+        line-height 22px
+        font-weight  400
+      p
+        margin-top 5px
+        font-size 14px
+        line-height 14px
+      .title
+        display flex
+        justify-content center
+    .list
+      height 100vh
+      width 100vw
+      padding 20px
+      display flex
+      justify-content space-between
+      align-items center
+      margin-bottom  15px
+      min-width 600px
+      max-width 2000px
 </style>
